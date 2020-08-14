@@ -1,0 +1,132 @@
+    Array practice problems
+1)Write a program in the following steps
+a. Generates 10 Random 3 Digit number.
+b. Store this random numbers into a array.
+c. Then find the 2nd largest and the 2nd smallest element without sorting the array.
+Ans #!/bin/bash -x
+min=1000
+max=1
+smin=1000
+smax=1
+for (( i=0; i <= 10; i++ ))
+do
+num=$(( RANDOM % 999 + 100 ))
+Array[i]=$num
+if [ $num -gt $max ]
+then
+max=$num
+fi
+if [ $num -lt $min ]
+then
+min=$num
+fi
+done
+for (( i=0; i<10; i++ ))
+do
+val=${array[i]}
+if [ $val -eq $min || $val -eq $max]
+then
+continue
+fi
+if [ $val-gt$smax ]
+then
+smax=$val
+fi
+if [ $val-lt$smin ]
+then
+smin=$val
+fi
+done
+echo ${val[@]}
+echo "second samallest $smin | second largest element $smax"
+2)Extend the above program to sort the array and then find the 2nd largest
+and the 2nd smallest element.
+ans) #!/bin/bash
+for (( i=0;i<=9; i++ ))
+do
+val[$i]=$(( RANDOM % 999 +100 ))
+done
+echo ${val[@]}
+a=0
+count=${#val[@]}
+for (( i=0; i<(($count)); i++ ))
+do
+k=$(($i+1))
+for (( j=$k; j<(($count)); j++ ))
+do
+if [[ ${val[i]} > ${val[j]} ]]
+then
+a=${val[i]}
+val[i]=${val[j]}
+val[j]=$a
+fi
+done
+done
+echo "sorted array" ${val[@]}
+echo "second smaller number" ${val[1]}
+echo "second largest" ${val[(($count-2))]}
+3)Extend the Prime Factorization Program to store all the Prime Factors of a
+number n into an array and finally display the output.
+Ans#!/bin/bash
+echo "enter any number "
+read num
+if [ $num -lt 2 ]
+then
+echo "invalid entry"
+else
+counter=0
+while [ $(( $num%2 )) -eq 0 ]
+do
+prime[(( counter++ ))]=2
+num=$(( $num/2 ))
+done
+for (( i=3; $(($i*$i))<=num; ((i+=2)) ))
+do
+while [ $(( $num%$i )) -eq 0 ]
+do
+prime[(( counetr++ ))]=$i
+num=$(( $num/$i ))
+done
+done
+if [ $num -gt 2 ]
+then
+prime[((counter++))]=$num
+fi
+echo "prime factors of storing in an array"
+echo ${prime[@]}
+fi
+4)Write a Program to show Sum of three Integer adds to ZERO
+ans)#!/bin/bash
+echo "enter 1st number"
+read a
+echo "enter 2nd number"
+read b
+echo "enter 3rd number"
+read c
+z=$(( $a+$b+$c ))
+echo $z
+w=$(( $z-$z ))
+echo $w
+if [ $z -eq 0 ]
+then
+echo "number is zero"
+else
+echo "invalid"
+fi
+repeated[$z]=”zero”
+Echo ${!repeated}
+5)Take a range from 0 – 100, find the digits that are repeated twice like 33, 77,etc and
+store them in an array
+Ans)
+#!/bin/bash
+a=11
+for (( i=0;i<=100;i++ ))
+do
+z=$(( $i % $a ))
+if [ $z -eq 0 ]
+then
+echo "repeated" $i
+fi
+done
+repeated[$i]=”double digit”
+Echo ${!repeated}
